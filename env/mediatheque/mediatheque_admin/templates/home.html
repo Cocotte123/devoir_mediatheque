@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h1>Médiathèque</h1>
+    <h2>Admnistrateur</h2>
+    <h3>Liste des emprunteurs</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Emprunteur Id</td>
+                    <td style="width: 200px">Prénom</td>
+                    <td style="width: 200px">Nom</td>
+                    <td style="width: 200px">Date de création</td>
+                    <td style="width: 200px">Bloqué</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emprunteur in datas_emprunteur %}
+                <tr>
+                    <td>{{emprunteur.id}}</td>
+                    <td>{{emprunteur.first_name}}</td>
+                    <td>{{emprunteur.last_name}}</td>
+                    <td>{{emprunteur.date_creation}}</td>
+                    <td style="background-color: {{emprunteur.statut_emprunteur}}">{{emprunteur.bloque}}</td>
+                    <td>
+                        <form action="{% url 'delete_emprunteur' emprunteur.id%}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Supprimer" class="btn">
+                        </form>
+                    </td>
+                     <td>
+                        <form action="{% url 'update_emprunteur' emprunteur.id%}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Modifier statut" class="btn">
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <h3>Ajouter un emprunteur</h3>
+    <form action="{% url 'add_emprunteur'%}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Prénom" name="first_name" required maxlength="40">
+        <input type="text" placeholder="Nom" name="last_name"  required maxlength="40">
+        <button type="submit">Ajouter</button>
+    </form>
+    <h3>Liste des médias</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Media id</td>
+                    <td style="width: 200px">Titre</td>
+                    <td style="width: 200px">Type</td>
+                    <td style="width: 200px">Date d'emprunt</td>
+                    <td style="width: 200px">Disponible</td>
+                    <td style="width: 200px">Emprunteur</td>
+                    <td style="width: 200px">Auteur/Réalisateur/Artiste</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for media in datas_media %}
+                <tr>
+                    <td>{{media.id}}</td>
+                    <td>{{media.media_name}}</td>
+                    <td>{{media.media}}</td>
+                    <td>{{media.date_emprunt}}</td>
+                    <td>{{media.disponible}}</td>
+                    <td>{{media.emprunteur}}</td>
+                    <td>{{media.livre_auteur}}</td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <h3>Ajouter un média</h3>
+    <form action="{% url 'add_media'%}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Titre" name="media_name" required maxlength="100">
+        <label for="media">Type de média</label>
+        <select name="media" id="media">
+           <option value="LIVRE">LIVRE</option>
+           <option value="CD">CD</option>
+            <option value="DVD">DVD</option>
+        </select>
+        <input type="text" placeholder="Auteur/Réalisateur/Artiste" name="auteur"  required maxlength="100">
+        <button type="submit">Ajouter</button>
+    </form>
+     <h3>Liste des jeux de plateau</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Jeu id</td>
+                    <td style="width: 200px">Nom du jeu</td>
+                    <td style="width: 200px">Date d'emprunt</td>
+                    <td style="width: 200px">Disponible</td>
+                    <td style="width: 200px">Emprunteur</td>
+                    <td style="width: 200px">Créateur du jeu</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jeu in datas_jeuplateau %}
+                <tr>
+                    <td>{{jeu.id}}</td>
+                    <td>{{jeu.jeu_name}}</td>
+                    <td>{{jeu.date_emprunt}}</td>
+                    <td>{{jeu.disponible}}</td>
+                    <td>{{jeu.emprunteur}}</td>
+                    <td>{{jeu.jeu_createur}}</td>
+                    <td>
+                        <a href="{% url 'emprunt_jeuplateau_page' jeu.id%}">
+                           <button>Emprunter</button>
+                        </a>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <h3>Ajouter un jeu de plateau</h3>
+    <form action="{% url 'add_jeuplateau'%}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Nom du jeu" name="jeu_name" required maxlength="100">
+        <input type="text" placeholder="Créateur du jeu" name="jeu_createur"  required maxlength="40">
+        <button type="submit">Ajouter</button>
+    </form>
+</body>
+</html>
