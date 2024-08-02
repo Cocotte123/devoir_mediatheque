@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+     <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h3>Emprunter un DVD</h3>
+
+    <form action="{% url 'emprunt_dvd'%}" method="POST">
+        {% csrf_token %}
+        <label for="emprunteur">Nom de l'emprunteur</label>
+        <select name="emprunteur" id="emprunteur" required>
+            {% for emprunteur in datas_emprunteur %}
+            <option value="{{emprunteur.id}}">{{emprunteur.id}} - {{emprunteur.first_name}} {{emprunteur.last_name}} </option>
+            {% endfor %}
+        </select>
+        <label for="dvd">Titre du DVD</label>
+         <select name="dvd" id="dvd" required>
+            {% for dvd in datas_dvd %}
+            <option value="{{dvd.id}}">{{dvd.id}} - {{dvd.media_name}}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="date_emprunt">
+        <input type="submit" value="Valider" class="btn">
+    </form>
+</body>
+</html>

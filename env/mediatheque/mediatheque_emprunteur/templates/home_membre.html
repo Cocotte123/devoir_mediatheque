@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h1>Médiathèque</h1>
+    <h2>Membre</h2>
+    <h3>Liste des Jeux de plateau disponibles</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Jeu id</td>
+                    <td style="width: 200px">Nom du jeu</td>
+                    <td style="width: 200px">Créateur du jeu</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jeu in datas_jeuplateau %}
+                <tr>
+                    <td>{{jeu.id}}</td>
+                    <td>{{jeu.jeu_name}}</td>
+                    <td>{{jeu.jeu_createur}}</td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+ <h3>Liste des Médias disponibles</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Media id</td>
+                    <td style="width: 200px">Titre</td>
+                    <td style="width: 200px">Type de média</td>
+                    <td style="width: 200px">Auteur/Réalisateur/Artiste</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for media in datas_media %}
+                <tr>
+                    <td>{{media.id}}</td>
+                    <td>{{media.media_name}}</td>
+                    <td>{{media.media}}</td>
+                    <td>{{media.livre_auteur}}</td>
+
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

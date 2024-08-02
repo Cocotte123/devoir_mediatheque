@@ -79,6 +79,7 @@
                     <td>{{media.livre_auteur}}</td>
 
 
+
                 </tr>
                 {% endfor %}
 
@@ -98,6 +99,30 @@
         <input type="text" placeholder="Auteur/Réalisateur/Artiste" name="auteur"  required maxlength="100">
         <button type="submit">Ajouter</button>
     </form>
+    <h3>Emprunter un média</h3>
+     <div class="row">
+        <a href="{% url 'emprunt_livre_page'%}">
+            <button>Emprunter un livre</button>
+        </a>
+         <a href="{% url 'emprunt_cd_page'%}">
+            <button>Emprunter un CD</button>
+        </a>
+         <a href="{% url 'emprunt_dvd_page'%}">
+            <button>Emprunter un DVD</button>
+        </a>
+     </div>
+    <h3>Retourner un média</h3>
+     <div class="row">
+        <a href="{% url 'retour_livre_page'%}">
+            <button>Retourner un livre</button>
+        </a>
+         <a href="{% url 'retour_cd_page'%}">
+            <button>Retourner un CD</button>
+        </a>
+         <a href="{% url 'retour_dvd_page'%}">
+            <button>Retourner un DVD</button>
+        </a>
+     </div>
      <h3>Liste des jeux de plateau</h3>
     <div class="row">
         <table style="width: 1000px;border: solid black 2px">
@@ -122,8 +147,14 @@
                     <td>{{jeu.jeu_createur}}</td>
                     <td>
                         <a href="{% url 'emprunt_jeuplateau_page' jeu.id%}">
-                           <button>Emprunter</button>
+                           <button style="visibility: {{jeu.statut_emprunt2}}">Emprunter</button>
                         </a>
+                    </td>
+                    <td>
+                        <form action="{% url 'retour_jeuplateau' jeu.id%}" method="POST" style="visibility: {{jeu.retour_emprunt2}}">
+                            {% csrf_token %}
+                            <input type="submit" value="Retour" class="btn">
+                        </form>
                     </td>
 
 
@@ -140,5 +171,8 @@
         <input type="text" placeholder="Créateur du jeu" name="jeu_createur"  required maxlength="40">
         <button type="submit">Ajouter</button>
     </form>
+
+
 </body>
+
 </html>

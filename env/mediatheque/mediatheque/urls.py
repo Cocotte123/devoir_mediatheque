@@ -20,4 +20,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mediatheque_admin.urls')),
+    path('membre', include('mediatheque_emprunteur.urls')),
 ]

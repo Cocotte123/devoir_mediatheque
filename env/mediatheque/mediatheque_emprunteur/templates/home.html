@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h1>Médiathèque</h1>
+    <h2>Membre</h2>
+    <h3>Liste des Jeux de plateau disponibles</h3>
+    <div class="row">
+        <table style="width: 1000px;border: solid black 2px">
+            <thead>
+                <tr>
+                    <td style="width: 200px">Jeu id</td>
+                    <td style="width: 200px">Nom du jeu</td>
+                    <td style="width: 200px">Date d'emprunt</td>
+                    <td style="width: 200px">Disponible</td>
+                    <td style="width: 200px">Emprunteur</td>
+                    <td style="width: 200px">Créateur du jeu</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jeu in datas_jeuplateau %}
+                <tr>
+                    <td>{{jeu.id}}</td>
+                    <td>{{jeu.jeu_name}}</td>
+                    <td>{{jeu.date_emprunt}}</td>
+                    <td>{{jeu.disponible}}</td>
+                    <td>{{jeu.emprunteur}}</td>
+                    <td>{{jeu.jeu_createur}}</td>
+                    <td>
+                        <a href="{% url 'emprunt_jeuplateau_page' jeu.id%}">
+                           <button style="visibility: {{jeu.statut_emprunt2}}">Emprunter</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{% url 'retour_jeuplateau' jeu.id%}" method="POST" style="visibility: {{jeu.retour_emprunt2}}">
+                            {% csrf_token %}
+                            <input type="submit" value="Retour" class="btn">
+                        </form>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

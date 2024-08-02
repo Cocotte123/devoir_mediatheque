@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+     <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h3>Retourner un CD</h3>
+
+    <form action="{% url 'retour_cd'%}" method="POST">
+        {% csrf_token %}
+        <label for="cd">Titre du CD</label>
+         <select name="cd" id="cd" required>
+            {% for cd in datas_cd %}
+            <option value="{{cd.id}}">{{cd.id}} - {{cd.media_name}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Valider" class="btn">
+    </form>
+</body>
+</html>

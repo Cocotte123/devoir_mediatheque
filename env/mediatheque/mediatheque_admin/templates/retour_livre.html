@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+     <title>Projet Python Médiathèque</title>
+</head>
+<body>
+    <h3>Retourner un livre</h3>
+
+    <form action="{% url 'retour_livre'%}" method="POST">
+        {% csrf_token %}
+        <label for="livre">Titre du livre</label>
+         <select name="livre" id="livre" required>
+            {% for livre in datas_livre %}
+            <option value="{{livre.id}}">{{livre.id}} - {{livre.media_name}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Valider" class="btn">
+    </form>
+</body>
+</html>

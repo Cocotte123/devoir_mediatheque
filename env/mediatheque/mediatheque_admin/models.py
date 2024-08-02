@@ -29,6 +29,7 @@ class Media(models.Model):
     class Meta:
         abstract = True
 
+
 class Livre(Media):
     livre_auteur = models.CharField(max_length=100)
 
@@ -48,4 +49,15 @@ class Jeu_plateau(models.Model):
     disponible = models.BooleanField(default=True)
     emprunteur = models.ForeignKey(Emprunteur, null=True, blank=True, on_delete=models.CASCADE)
 
+    def statut_emprunt2(self):
+        if self.disponible == 0 :
+            return 'hidden'
+        else:
+            return 'visible'
+
+    def retour_emprunt2(self):
+        if self.disponible == 1 :
+            return 'hidden'
+        else:
+            return 'visible'
 # Create your models here.
